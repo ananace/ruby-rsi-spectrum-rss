@@ -1,0 +1,7 @@
+.bundle/
+vendor/
+Makefile
+image-*
+manifest
+
+Gemfile.lock
