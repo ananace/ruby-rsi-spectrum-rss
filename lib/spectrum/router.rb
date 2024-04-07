@@ -21,6 +21,8 @@ class Spectrum::Router < Sinatra::Base
 
   get '/:channel/feed.xml', provides: %w[rss atom xml] do |channel|
     posts = Spectrum.posts(channel, logger: logger)
+    last_modified Time.at(posts.dig('data', 'latest_timestamp'))
+
     Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
       xml.feed(xmlns: 'http://www.w3.org/2005/Atom') do
         xml.id "rsi:spectrum:#{channel}"
